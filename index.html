@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<title>Ahmed Movies World</title>
+
+<style>
+
+/* ===== Reset ===== */
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family: 'Arial', sans-serif;
+}
+
+/* ===== Body ===== */
+body{
+background: radial-gradient(circle at top, #0f0c29, #302b63, #24243e);
+color:white;
+min-height:100vh;
+}
+
+/* ===== Header ===== */
+header{
+text-align:center;
+padding:60px 20px;
+}
+
+.profile-pic{
+width:180px;
+height:180px;
+border-radius:50%;
+border:4px solid cyan;
+box-shadow:0 0 30px cyan;
+object-fit:cover;
+}
+
+h1{
+margin-top:20px;
+font-size:48px;
+letter-spacing:4px;
+color:#00ffff;
+text-shadow:0 0 20px cyan;
+}
+
+/* ===== Description ===== */
+.site-desc{
+max-width:750px;
+margin:25px auto;
+line-height:1.8;
+font-size:16px;
+color:#dddddd;
+}
+
+/* ===== Instagram ===== */
+.instagram-box{
+margin-top:20px;
+display:flex;
+justify-content:center;
+align-items:center;
+gap:10px;
+}
+
+.instagram-box img{
+width:30px;
+height:30px;
+}
+
+.instagram-box a{
+color:#ff4fd8;
+text-decoration:none;
+font-weight:bold;
+font-size:18px;
+}
+
+.instagram-box a:hover{
+color:#00ffff;
+}
+
+/* ===== Section ===== */
+.movies{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:30px;
+padding:50px;
+}
+
+/* ===== Movie Card ===== */
+.movie-card{
+background:rgba(0,0,0,0.5);
+border-radius:20px;
+overflow:hidden;
+box-shadow:0 0 25px rgba(0,255,255,0.4);
+transition:0.4s;
+}
+
+.movie-card:hover{
+transform:scale(1.05);
+box-shadow:0 0 40px cyan;
+}
+
+/* ===== Movie Image ===== */
+.movie-card img{
+width:100%;
+height:300px;
+object-fit:cover;
+}
+
+/* ===== Movie Content ===== */
+.movie-content{
+padding:20px;
+text-align:center;
+}
+
+.movie-content h2{
+font-size:22px;
+margin-bottom:15px;
+color:#00ffff;
+}
+
+/* ===== Button ===== */
+.movie-content a{
+display:inline-block;
+padding:10px 25px;
+background:linear-gradient(45deg,#00ffff,#ff00ff);
+color:black;
+text-decoration:none;
+border-radius:30px;
+font-weight:bold;
+transition:0.3s;
+}
+
+.movie-content a:hover{
+background:linear-gradient(45deg,#ff00ff,#00ffff);
+box-shadow:0 0 15px cyan;
+}
+
+/* ===== Footer ===== */
+footer{
+text-align:center;
+padding:30px;
+color:#aaa;
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+
+<img src="img\profile.jpg" class="profile-pic">
+
+<h1>BO7MID FILMS</h1>
+
+<p class="site-desc">
+بسبب انو توصلني برشا ميساجات و انا مانقدرش نجاوب الكل قررت اني نبرمج موقع نوفرلكم فيه الافلام مجانا للناس اللي ماتقدرش تصرف مقابل انها تتفرج و الا ناس في الغربة او في البلدان الشقيقة ما عندهاش امكانية بش توصل لأفلامنا
+</p>
+
+<div class="instagram-box">
+<img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png">
+<a href=https://www.instagram.com/booo7midd/ target="_blank">تابعني على إنستغرام</a>
+</div>
+
+</header>
+
+<section class="movies">
+
+<div class="movie-card">
+<img src="img\rebelote.webp">
+<div class="movie-content">
+<h2>فيلم مشكي و عاود</h2>
+<a href="https://mega.nz/folder/SqI2wCpT#KRRXY5x-aJHDfhVjkcbQ6g" target="_blank">مشاهدة</a>
+</div>
+</div>
+
+<div class="movie-card">
+<img src="img\sa7bekrajel2.jpg">
+<div class="movie-content">
+<h2>فيلم صاحبك راجل 2</h2>
+<a href="https://mega.nz/folder/uihjiLDK#BfOcVPLVQc0-YuLyTUYV_Q" target="_blank">مشاهدة</a>
+</div>
+</div>
+
+<div class="movie-card">
+<img src="img\win ye5dhna ri77.jpg">
+<div class="movie-content">
+<h2>فيلم وين ياخذنا الريح</h2>
+<a href="https://mega.nz/folder/vzR2FJrL#1Dow4eSHLbZyCQ69wSLz7w" target="_blank">مشاهدة</a>
+</div>
+</div>
+
+<div class="movie-card">
+<img src="img\9antra.webp">
+<div class="movie-content">
+<h2>فيلم القنطرة</h2>
+<a href="https://mega.nz/folder/b25kXJzL#vNwu8KlwPYTXM-A6KCGMMQ" target="_blank">مشاهدة</a>
+</div>
+</div>
+
+<div class="movie-card">
+<img src="img\harba.jpg">
+<div class="movie-content">
+<h2>فيلم الهربة</h2>
+<a href="https://mega.nz/folder/iiwlnB6C#zY8ggAFrI7HJN7Ui9SQWiw" target="_blank">مشاهدة</a>
+</div>
+</div>
+
+<div class="movie-card">
+<img src="img\songebob2026.jpg">
+<div class="movie-content">
+<h2>فيلم SpongeBob</h2>
+<a href="https://drive.google.com/drive/folders/1S41rUv3rwXcgml8Lg5LEGrkSFtNhziOC?usp=drive_link" target="_blank">مشاهدة</a>
+</div>
+</div>
+
+</section>
+
+<footer>
+© 2026 - bo7mid Movies World
+</footer>
+
+</body>
+</html>
