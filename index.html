@@ -6,6 +6,20 @@
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
 
 <style>
+
+/* ================= ROOT COLORS ================= */
+:root{
+--bg-dark:#0b0c27;
+--bg-light:#f2f4ff;
+--card-dark:rgba(0,0,0,0.65);
+--card-light:white;
+--text-dark:white;
+--text-light:#111;
+--primary:#00ffff;
+--secondary:#ff00ff;
+}
+
+/* ================= BASE ================= */
 *{
 margin:0;
 padding:0;
@@ -14,15 +28,20 @@ font-family:'Cairo',sans-serif;
 }
 
 body{
-background:#0b0c27;
-color:white;
-overflow-x:hidden;
+background:var(--bg-dark);
+color:var(--text-dark);
 min-height:100vh;
-position:relative;
-perspective:1000px;
+overflow-x:hidden;
+transition:0.5s;
 }
 
-/* ===== خلفية جزيئية متحركة ===== */
+/* Light Mode */
+body.light{
+background:var(--bg-light);
+color:var(--text-light);
+}
+
+/* ================= CANVAS ================= */
 canvas{
 position:fixed;
 top:0;
@@ -32,27 +51,46 @@ height:100%;
 z-index:-1;
 }
 
-/* ===== الهيدر ===== */
+/* ================= THEME BUTTON ================= */
+.theme-toggle{
+position:fixed;
+top:20px;
+right:20px;
+background:#00ffff;
+border:none;
+padding:10px 20px;
+border-radius:25px;
+cursor:pointer;
+font-weight:bold;
+box-shadow:0 0 15px cyan;
+z-index:999;
+transition:0.3s;
+}
+
+.theme-toggle:hover{
+transform:scale(1.1);
+}
+
+/* ================= HEADER ================= */
 header{
 text-align:center;
-padding:60px 20px;
-position:relative;
-z-index:10;
+padding:70px 20px;
 }
 
 .profile-pic{
 width:180px;
 height:180px;
 border-radius:50%;
-border:5px solid #00ffff;
-object-fit:cover;
+border:5px solid cyan;
 box-shadow:0 0 50px cyan;
-animation:pulse 3s infinite;
-transition:0.5s;
+animation:pulse 3s infinite, logoFloat 4s ease-in-out infinite;
 }
 
-.profile-pic:hover{
-transform:scale(1.1) rotate(5deg);
+/* ===== LOGO ANIMATION ===== */
+@keyframes logoFloat{
+0%{transform:translateY(0);}
+50%{transform:translateY(-15px);}
+100%{transform:translateY(0);}
 }
 
 @keyframes pulse{
@@ -62,175 +100,131 @@ transform:scale(1.1) rotate(5deg);
 }
 
 .site-desc{
-max-width:750px;
-margin:25px auto;
-line-height:1.8;
-color:#ddd;
-font-size:16px;
-text-shadow:0 0 5px #00ffff;
+max-width:800px;
+margin:30px auto;
+line-height:1.9;
+opacity:0.9;
 }
 
-/* ===== Instagram ===== */
+/* ================= INSTAGRAM ================= */
 .instagram-box{
-margin-top:20px;
 display:flex;
 justify-content:center;
-align-items:center;
 gap:10px;
+align-items:center;
 }
 
 .instagram-box img{
 width:35px;
-height:35px;
-transition:0.3s;
-}
-
-.instagram-box img:hover{
-transform:scale(1.3) rotate(10deg);
 }
 
 .instagram-box a{
 color:#ff4fd8;
+font-size:18px;
 text-decoration:none;
 font-weight:bold;
-font-size:18px;
-transition:0.3s;
 }
 
-.instagram-box a:hover{
-color:#00ffff;
-}
-
-/* ===== قسم الأفلام ===== */
+/* ================= GRID ================= */
 .container{
 display:grid;
 grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
 gap:30px;
-padding:50px;
+padding:60px;
 }
 
-/* ===== بطاقات الأفلام ===== */
+/* ================= CARD ================= */
 .card{
-background:rgba(0,0,0,0.6);
-border-radius:20px;
+background:var(--card-dark);
+border-radius:22px;
 overflow:hidden;
 box-shadow:0 0 25px rgba(0,255,255,0.4);
 transition:0.5s;
-position:relative;
+cursor:pointer;
+
+/* دخول انميشن */
 opacity:0;
 transform:translateY(50px);
-animation:fadeIn 1s forwards;
-transform-style:preserve-3d;
-cursor:pointer;
+animation:cardAppear 1s ease forwards;
 }
 
-.card:nth-child(1){animation-delay:0.2s;}
-.card:nth-child(2){animation-delay:0.4s;}
-.card:nth-child(3){animation-delay:0.6s;}
-.card:nth-child(4){animation-delay:0.8s;}
-.card:nth-child(5){animation-delay:1s;}
-.card:nth-child(6){animation-delay:1.2s;}
+@keyframes cardAppear{
+to{
+opacity:1;
+transform:translateY(0);
+}
+}
 
-@keyframes fadeIn{
-to{opacity:1; transform:translateY(0);}
+body.light .card{
+background:var(--card-light);
+box-shadow:0 0 15px rgba(0,0,0,0.3);
 }
 
 .card:hover{
-transform:translateY(-20px) scale(1.05) rotateX(8deg) rotateY(2deg);
-box-shadow:0 0 50px #ff00ff,0 0 60px #00ffff,0 0 80px magenta;
+transform:translateY(-15px) scale(1.05);
+box-shadow:0 0 40px magenta,0 0 50px cyan;
 }
 
-/* ===== صور البطاقة ===== */
+/* ================= IMAGE ================= */
 .card img{
 width:100%;
 height:320px;
 object-fit:cover;
-transition:0.5s;
 }
 
-.card img:hover{
-transform:scale(1.05) rotateZ(3deg);
-filter:brightness(1.2);
-}
-
-/* ===== عنوان البطاقة ===== */
+/* ================= TITLE ================= */
 .card h2{
 text-align:center;
 padding:15px;
-font-size:22px;
-color:#00ffff;
-text-shadow:0 0 15px cyan;
-transition:0.3s;
+color:cyan;
 }
 
-.card h2:hover{
-text-shadow:0 0 25px magenta,0 0 35px cyan;
-}
-
-/* ===== أزرار ===== */
+/* ================= BUTTONS ================= */
 .buttons{
 display:flex;
 justify-content:center;
-gap:15px;
+gap:12px;
 padding-bottom:20px;
-flex-direction:row; /* ترتيب افقي */
+flex-wrap:wrap;
 }
 
 .buttons a{
 padding:10px 18px;
-border-radius:30px;
-text-decoration:none;
+border-radius:25px;
 font-weight:bold;
+text-decoration:none;
 transition:0.3s;
 }
 
-.btn1{
-background:#00ffff;
-color:black;
-box-shadow:0 0 10px cyan;
-animation:neonPulse 2s infinite;
-}
+/* Button Styles */
+.btn1{background:#00ffff;color:black;}
+.btn2{background:#ff8800;color:black;}
+.btn3{background:#00ff88;color:black;}
 
-.btn1:hover{
-background:#ff00ff;
-color:white;
-box-shadow:0 0 25px magenta,0 0 40px cyan;
+.buttons a:hover{
 transform:scale(1.1);
+box-shadow:0 0 20px white;
 }
 
-.btn2{
-background:#ff8800;
-color:black;
-box-shadow:0 0 10px orange;
-animation:neonPulse 2s infinite;
-}
-
-.btn2:hover{
-background:#ffee00;
-box-shadow:0 0 25px yellow,0 0 40px orange;
-transform:scale(1.1);
-}
-
-@keyframes neonPulse{
-0%,100%{box-shadow:0 0 10px currentColor;}
-50%{box-shadow:0 0 25px currentColor;}
-}
-
-/* ===== Footer ===== */
+/* ================= FOOTER ================= */
 footer{
 text-align:center;
 padding:30px;
-color:#aaa;
+opacity:0.7;
 }
 
-/* ===== Parallax حركة الماوس ===== */
-.card:hover{
-perspective:800px;
-transform:rotateY(calc(var(--mouseX) * 1deg)) rotateX(calc(var(--mouseY) * 1deg)) translateY(-20px) scale(1.05);
-}
+/* ================= LIGHT MODE COLORS ================= */
+body.light .card h2{color:#0077ff;}
+body.light .btn1{background:#0077ff;color:white;}
+body.light .btn2{background:#ff5500;color:white;}
+body.light .btn3{background:#00aa55;color:white;}
+
 </style>
 </head>
+
 <body>
+
+<button class="theme-toggle" onclick="toggleTheme()">بدل على راحتك ليل/ نهار</button>
 
 <canvas id="particles"></canvas>
 
@@ -239,6 +233,7 @@ transform:rotateY(calc(var(--mouseX) * 1deg)) rotateX(calc(var(--mouseY) * 1deg)
 <p class="site-desc">
 بسبب انو توصلني برشا ميساجات و انا مانقدرش نجاوب الكل قررت اني نبرمج موقع نوفرلكم فيه الافلام مجانا للناس اللي ماتقدرش تصرف مقابل انها تتفرج و الا ناس في الغربة او في البلدان الشقيقة ما عندهاش امكانية بش توصل لأفلامنا
 </p>
+
 <div class="instagram-box">
 <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png">
 <a href="https://www.instagram.com/booo7midd/" target="_blank">تابعني على إنستغرام</a>
@@ -246,149 +241,148 @@ transform:rotateY(calc(var(--mouseX) * 1deg)) rotateX(calc(var(--mouseY) * 1deg)
 </header>
 
 <div class="container">
+
 <!-- فيلم مشكي و عاود -->
 <div class="card">
 <img src="img\rebelote.webp">
 <h2>فيلم مشكي و عاود</h2>
 <div class="buttons">
-<a class="btn1" href="https://mega.nz/folder/SqI2wCpT#KRRXY5x-aJHDfhVjkcbQ6g" target="_blank">مشاهدة طريقة 1</a>
-<a class="btn2" href="https://drive.google.com/drive/folders/1_U69fuw_zeKj2i7KFm5xzkLQRZa4b_Vv?usp=sharing">مشاهدة طريقة 2</a>
+<a class="btn1" href="https://mega.nz/folder/SqI2wCpT#KRRXY5x-aJHDfhVjkcbQ6g">طريقة 1</a>
+<a class="btn2" href="https://drive.google.com/drive/folders/1_U69fuw_zeKj2i7KFm5xzkLQRZa4b_Vv?usp=sharing">طريقة 2</a>
+<a class="btn3" href="https://youtu.be/29gfmSRYpqk">طريقة 3</a>
 </div>
 </div>
 
-<!-- فيلم صاحبك راجل 2 -->
+<!-- صاحبك راجل 2 -->
 <div class="card">
 <img src="img\sa7bekrajel2.jpg">
 <h2>فيلم صاحبك راجل 2</h2>
 <div class="buttons">
-<a class="btn1" href="https://mega.nz/folder/uihjiLDK#BfOcVPLVQc0-YuLyTUYV_Q" target="_blank">مشاهدة طريقة 1</a>
-<a class="btn2" href="https://drive.google.com/drive/folders/15icDNlC-OV5n9-GqPIo6hiDUSrPC4nhs?usp=sharing">مشاهدة طريقة 2</a>
+<a class="btn1" href="https://mega.nz/folder/uihjiLDK#BfOcVPLVQc0-YuLyTUYV_Q">طريقة 1</a>
+<a class="btn2" href="https://drive.google.com/drive/folders/15icDNlC-OV5n9-GqPIo6hiDUSrPC4nhs?usp=sharing">طريقة 2</a>
+<!-- <a class="btn3" href="https://mega.nz/folder/uihjiLDK#BfOcVPLVQc0-YuLyTUYV_Q">طريقة 3</a>  -->
 </div>
 </div>
 
-<!-- فيلم وين ياخذنا الريح -->
+<!-- وين ياخذنا الريح -->
 <div class="card">
 <img src="img\win ye5dhna ri77.jpg">
 <h2>فيلم وين ياخذنا الريح</h2>
 <div class="buttons">
-<a class="btn1" href="https://mega.nz/folder/vzR2FJrL#1Dow4eSHLbZyCQ69wSLz7w" target="_blank">مشاهدة طريقة 1</a>
-<a class="btn2" href="https://drive.google.com/drive/folders/1pKk3HriBgsp-isu1abj1q5kDOo4-RfLQ?usp=sharing">مشاهدة طريقة 2</a>
+<a class="btn1" href="https://mega.nz/folder/vzR2FJrL#1Dow4eSHLbZyCQ69wSLz7w">طريقة 1</a>
+<a class="btn2" href="https://drive.google.com/drive/folders/1pKk3HriBgsp-isu1abj1q5kDOo4-RfLQ?usp=sharing">طريقة 2</a>
+<a class="btn3" href="https://www.youtube.com/watch?v=jiG-B62N9QA">طريقة 3</a>
 </div>
 </div>
 
-<!-- فيلم القنطرة -->
+<!-- القنطرة -->
 <div class="card">
 <img src="img\9antra.webp">
 <h2>فيلم القنطرة</h2>
 <div class="buttons">
-<a class="btn1" href="https://mega.nz/folder/b25kXJzL#vNwu8KlwPYTXM-A6KCGMMQ" target="_blank">مشاهدة طريقة 1</a>
-<a class="btn2" href="https://drive.google.com/drive/folders/1jJGS8DWNVNzByRhu3_mGmpnnVf9EvsS6?usp=sharing">مشاهدة طريقة 2</a>
+<a class="btn1" href="https://mega.nz/folder/b25kXJzL#vNwu8KlwPYTXM-A6KCGMMQ">طريقة 1</a>
+<a class="btn2" href="https://drive.google.com/drive/folders/1jJGS8DWNVNzByRhu3_mGmpnnVf9EvsS6?usp=sharing">طريقة 2</a>
+<!--               <a class="btn3" href="https://mega.nz/folder/b25kXJzL#vNwu8KlwPYTXM-A6KCGMMQ">طريقة 3</a>   -->
 </div>
 </div>
 
-<!-- فيلم الهربة -->
+<!-- الهربة -->
 <div class="card">
 <img src="img\harba.jpg">
 <h2>فيلم الهربة</h2>
 <div class="buttons">
-<a class="btn1" href="https://mega.nz/folder/iiwlnB6C#zY8ggAFrI7HJN7Ui9SQWiw" target="_blank">مشاهدة طريقة 1</a>
-<a class="btn2" href="https://drive.google.com/drive/folders/1WdsmJGgane4QaeqqbJS4TZIjE9yipoZO?usp=sharing">مشاهدة طريقة 2</a>
+<a class="btn1" href="https://mega.nz/folder/iiwlnB6C#zY8ggAFrI7HJN7Ui9SQWiw">طريقة 1</a>
+<a class="btn2" href="https://drive.google.com/drive/folders/1WdsmJGgane4QaeqqbJS4TZIjE9yipoZO?usp=sharing">طريقة 2</a>
+<!--       <a class="btn3" href="https://mega.nz/folder/iiwlnB6C#zY8ggAFrI7HJN7Ui9SQWiw">طريقة 3</a>         --> 
 </div>
 </div>
 
-<!-- فيلم SpongeBob -->
+<!-- SpongeBob -->
 <div class="card">
 <img src="img\songebob2026.jpg">
 <h2>فيلم SpongeBob</h2>
 <div class="buttons">
-<a class="btn1" href="https://drive.google.com/drive/folders/1S41rUv3rwXcgml8Lg5LEGrkSFtNhziOC?usp=drive_link" target="_blank">مشاهدة طريقة 1</a>
-<a class="btn2" href="https://drive.google.com/drive/folders/1S41rUv3rwXcgml8Lg5LEGrkSFtNhziOC?usp=drive_link">مشاهدة طريقة 2</a>
+<a class="btn1" href="https://drive.google.com/drive/folders/1S41rUv3rwXcgml8Lg5LEGrkSFtNhziOC?usp=drive_link">طريقة 1</a>
+<a class="btn2" href="https://drive.google.com/drive/folders/1S41rUv3rwXcgml8Lg5LEGrkSFtNhziOC?usp=drive_link">طريقة 2</a>
+<!--          <a class="btn3" href="https://drive.google.com/drive/folders/1S41rUv3rwXcgml8Lg5LEGrkSFtNhziOC?usp=drive_link">طريقة 3</a>   -->
 </div>
 </div>
+<!-- 2الهربة -->
+<div class="card">
+<img src="img/dachra.webp">
+<h2>فيلم دشرة</h2>
+<div class="buttons">
+<a class="btn1" href="https://mega.nz/folder/ru5j0YSQ#r50qEnrmSLgjwWfehwYueQ">طريقة 1</a>
+<a class="btn2" href="https://drive.google.com/drive/folders/1LEMnHuyHvhSnmP2K2-QkBYXXpjWxSU37?usp=sharing">طريقة 2</a>
+ <!--         <a class="btn3" href="https://mega.nz/folder/iiwlnB6C#zY8ggAFrI7HJN7Ui9SQWiw">طريقة 3</a>  -->
+</div>
+</div>
+<!-- 2الهربة -->
+
 
 </div>
 
-<footer>
-© 2026 - bo7mid Movies World
-</footer>
+<footer>© 2026 - bo7mid Movies World</footer>
 
 <script>
-// تأثير Parallax عند تحريك الماوس على البطاقات
-document.addEventListener('mousemove',e=>{
-const cards=document.querySelectorAll('.card');
-cards.forEach(card=>{
-let rect=card.getBoundingClientRect();
-let x=((e.clientX - rect.left)/rect.width-0.5)*20;
-let y=((e.clientY - rect.top)/rect.height-0.5)*20;
-card.style.setProperty('--mouseX',x);
-card.style.setProperty('--mouseY',-y);
-});
-});
 
-// ===== Particle Background =====
-const canvas = document.getElementById('particles');
-const ctx = canvas.getContext('2d');
-let particlesArray;
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
-
-window.addEventListener('resize',()=>{
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
-init();
-});
-
-class Particle {
-constructor(x,y,directionX,directionY,size,color){
-this.x=x;
-this.y=y;
-this.directionX=directionX;
-this.directionY=directionY;
-this.size=size;
-this.color=color;
+/* THEME */
+function toggleTheme(){
+document.body.classList.toggle("light");
 }
 
+/* ===== CARD DELAY ===== */
+document.querySelectorAll(".card").forEach((card,i)=>{
+card.style.animationDelay = `${i*0.2}s`;
+});
+
+/* PARTICLES */
+const canvas=document.getElementById("particles");
+const ctx=canvas.getContext("2d");
+canvas.width=innerWidth;
+canvas.height=innerHeight;
+
+let particles=[];
+
+class Particle{
+constructor(){
+this.x=Math.random()*canvas.width;
+this.y=Math.random()*canvas.height;
+this.size=Math.random()*3+1;
+this.dx=(Math.random()-0.5);
+this.dy=(Math.random()-0.5);
+}
 draw(){
 ctx.beginPath();
-ctx.arc(this.x,this.y,this.size,0,Math.PI*2,false);
-ctx.fillStyle=this.color;
+ctx.arc(this.x,this.y,this.size,0,Math.PI*2);
+ctx.fillStyle="rgba(0,255,255,0.7)";
 ctx.fill();
 }
-
 update(){
-if(this.x+this.size>canvas.width || this.x-this.size<0){
-this.directionX=-this.directionX;
-}
-if(this.y+this.size>canvas.height || this.y-this.size<0){
-this.directionY=-this.directionY;
-}
-this.x+=this.directionX;
-this.y+=this.directionY;
+this.x+=this.dx;
+this.y+=this.dy;
+if(this.x<0||this.x>canvas.width) this.dx*=-1;
+if(this.y<0||this.y>canvas.height) this.dy*=-1;
 this.draw();
 }
 }
 
 function init(){
-particlesArray=[];
-for(let i=0;i<100;i++){
-let size=Math.random()*3+1;
-let x=Math.random()* (canvas.width-size*2)+size;
-let y=Math.random()* (canvas.height-size*2)+size;
-let directionX=(Math.random()-0.5)*1.5;
-let directionY=(Math.random()-0.5)*1.5;
-let color='rgba(0,255,255,0.7)';
-particlesArray.push(new Particle(x,y,directionX,directionY,size,color));
+particles=[];
+for(let i=0;i<120;i++){
+particles.push(new Particle());
 }
-animate();
 }
 
 function animate(){
 requestAnimationFrame(animate);
 ctx.clearRect(0,0,canvas.width,canvas.height);
-particlesArray.forEach(p=>p.update());
+particles.forEach(p=>p.update());
 }
 
 init();
+animate();
+
 </script>
 
 </body>
